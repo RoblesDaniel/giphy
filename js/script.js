@@ -4,14 +4,17 @@
 /* global $ */
 
 $("#search-button").click(function(){
+var searchInput=$("input").val();
+console.log(searchInput);
+  var search="https://api.giphy.com/v1/gifs/search?q=" + searchInput + "&rating=pg&api_key=dc6zaTOxFJmzC";
   $.ajax({
-        url: "https://api.giphy.com/v1/gifs/search?q=puppy&rating=pg&api_key=dc6zaTOxFJmzC",
+        url: search,
         method: "GET",
         success: function(response) {
-            $("body").append("<img src=" + response.url + "/>");
-        }   
-    }); 
-  
-  
+            var pic_url = response.data[0].images.original.url;
+            $("body").append('<img src="' + response.data[0].images.original.url + '">');
+        }
+    });
+
 });
 
